@@ -132,7 +132,7 @@ def main(args):
       print('</html>')
   return P
 
-def openParameterFile(file,parameter_files=['*MOM_parameter_doc.all', '*MOM_parameter_doc.short'],ignore_files=[]):
+def openParameterFile(file,parameter_files=['*MOM_parameter_doc.all', '*MOM_parameter_doc.short', 'MOM_input'],ignore_files=[]):
   """Returns python file object for a MOM_parameter_doc file, that might be inside a tar-file."""
 
   # Check if file is a directory to search
@@ -174,7 +174,7 @@ def openParameterFile(file,parameter_files=['*MOM_parameter_doc.all', '*MOM_para
 
 class Parameters(object):
   """MOM6 parameter parser"""
-  def __init__(self, file, parameter_files=['*MOM_parameter_doc.all', '*MOM_parameter_doc.short'], exclude=[], ignore_files=[], model_name=None):
+  def __init__(self, file, parameter_files=['*MOM_parameter_doc.all', '*MOM_parameter_doc.short', 'MOM_input'], exclude=[], ignore_files=[], model_name=None):
     self.dict = collections.OrderedDict()
     open_file, filename, ctime = openParameterFile(file, parameter_files=parameter_files, ignore_files=ignore_files)
     self.label = filename
