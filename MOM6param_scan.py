@@ -192,6 +192,8 @@ class Parameters(object):
     append = False
     for t in tokens:
       t = str(t)
+      #if t.startswith('"'): t = "'"+t[1:] # Avoids escaping double quotes in JSON
+      #if t.endswith('"'): t = t[:-1]+"'" # Avoids escaping double quotes in JSON
       if t.endswith('%'):
         block.append(t)
         lhs = True
@@ -202,16 +204,16 @@ class Parameters(object):
         vals = []
         lhs = False
       elif (t == '=') and not lhs: raise Exception('Not lhs')
-      elif lhs:
-        if len(block): key = ''.join(block)+t
-        else: key = t
-        if model_name is not None: key = model_name+'%'+key
       elif t == ',':
         append = True
       elif append:
         vals.append(t)
         if not key in exclude: self.dict[key] = ','.join(vals)
         append = False
+      elif lhs:
+        if len(block): key = ''.join(block)+t
+        else: key = t
+        if model_name is not None: key = model_name+'%'+key
       else:
         vals.append(t)
         if not key in exclude: self.dict[key] = ','.join(vals)
