@@ -13,6 +13,8 @@ FLOAT1 = 1.0                    !   [s]
                                 ! This has no default so is mandatory.
 FLOAT2 = 2.0                    !   [s] default = 3.0
                                 ! This has a default so is optional.
+VECTOR = 2.0, 1.0, 3.0          !
+                                ! A vector
 
 ! === module MOM_and_dad ===
 BOOL2 = True                    !   [Boolean] default = False
@@ -23,6 +25,10 @@ STRING1 = "abc"                 ! default = "none"
                                 ! Strings normally have quotes.
 STRING1 = abc                   ! default = "none"
                                 ! But if quotes are missing, we let you off the hook.
+STRING2 = "abc", "def"          !
+                                ! List of strings
+STRING3 = abc, def              !
+                                ! Not a list of strings
 
 ! === module MOM_child ===
 ! This module tries to cause trouble.
