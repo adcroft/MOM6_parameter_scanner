@@ -249,18 +249,19 @@ class Parameters(object):
 
 class Namelists(object):
   """Scans a logfile or input namelist file for Fortran namelists"""
-  def __init__(self, file, parameter_files=['*.logfile.000000.out', '*logfile.*', 'input.nml', '*.nml'], exclude=[], ignore_files=[], uppercase_only=False):
+  def __init__(self, file, parameter_files=['*.logfile.000000.out', '*logfile.*', 'input.nml', '*.nml'], exclude=[], nml_exclude=['tracer_diagnostics_nml'], ignore_files=[], uppercase_only=False):
     self.dict = collections.OrderedDict()
     open_file, filename, ctime = openParameterFile(file, parameter_files=parameter_files, ignore_files=ignore_files)
     self.label = filename
     self.ctime = ctime
     excludes = r'|'.join([fnmatch.translate(x) for x in exclude]) or r'$.'
+    nml_excludes = r'|'.join([fnmatch.translate(x) for x in nml_exclude]) or r'$.'
     open_file = open_file.read()
     if not isinstance(open_file, str):
       open_file = open_file.decode('utf8')
     lex = shlex.shlex(open_file)
     lex.commenters = '!'
-    lex.wordchars += '.+-&'
+    lex.wordchars += '.+-&"/\''
     tokens = iter(lex)
     vals = [None]
     block = []
@@ -271,7 +272,7 @@ class Namelists(object):
       if '\n' in t: t = re.sub('\n\s*','',t)
       if t.startswith('"'): t = "'"+t[1:]
       if t.endswith('"'): t = t[:-1]+"'"
-      if len(t)>1 and t.startswith('&'):
+      if len(t)>1 and t.startswith('&') and not re.match(nml_excludes,t[1:].lower()):
         if uppercase_only: # Only examine uppercase namelist blocks
           if t[1:].upper() == t[1:]:
             block.append(t[1:].upper())
