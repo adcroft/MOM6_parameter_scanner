@@ -53,7 +53,7 @@ def parseCommandLine():
       help='assume FILE is a MOM6 parameter file. By default only MOM_parameter_doc.{all,short} are scanned.')
   parser.add_argument('-x','--exclude', action='append', default=[],
       help='parameters to exclude.')
-  parser.add_argument('-fmt','--format', choices=['json', 'html'], default='json',
+  parser.add_argument('-fmt','--format', choices=['json', 'html', 'text'], default='json',
       help='output format.')
   parser.add_argument('-t','--transpose', action='store_true',
       help='transpose html table.')
@@ -91,6 +91,9 @@ def main(args):
       print('<heading>'+file+'</heading>')
       P[file].html_table()
       print('</html>')
+    elif args.format == 'text':
+      for k in P[file].keys():
+        print(k,'=',P[file].get(k))
   elif len(P)>1:
     # Find all the keys
     allkeys = []
@@ -101,7 +104,6 @@ def main(args):
         diff = p0.compare(p)
         allkeys += diff.keys()
         p0 = p
-    #allkeys = uniq(allkeys)
     allkeys = sorted(set(allkeys))
 
     # Construct a table as a dictionary of dictionaries
@@ -130,6 +132,18 @@ def main(args):
           print('</tr>')
       print('</table>')
       print('</html>')
+    elif args.format == 'text':
+      if args.transpose:
+        for p in allkeys: print(p)
+        for e in table.iterkeys():
+          print(e)
+          for p in allkeys: print(table[e][p],end="")
+      else:
+        for e in table.iterkeys(): print(e,end="")
+        for p in allkeys:
+          print()
+          print(p,end="")
+          for e in table.iterkeys(): print(table[e][p],end="")
   return P
 
 def openParameterFile(file,parameter_files=['*MOM_parameter_doc.all', '*MOM_parameter_doc.short', 'MOM_input'],ignore_files=[]):

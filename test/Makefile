@@ -1,7 +1,7 @@
 # Path to script
 M6S = ../MOM6param_scan.py
 
-TESTS = test1.json test2.json test3.json test3.html
+TESTS = test1.json test2.json test3.json test3.html test3.text
 MD5SUMS = $(foreach t,$(TESTS),$(t).md5sum)
 REMOVE_TRAILING_SPACE = sed 's/ $$//'
 
