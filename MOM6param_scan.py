@@ -135,15 +135,15 @@ def main(args):
     elif args.format == 'text':
       if args.transpose:
         for p in allkeys: print(p)
-        for e in table.iterkeys():
+        for e in table.keys():
           print(e)
-          for p in allkeys: print(table[e][p],end="")
+          for p in allkeys: print(table[e][p],end=" ")
       else:
-        for e in table.iterkeys(): print(e,end="")
+        for e in table.keys(): print(e,end=" ")
         for p in allkeys:
           print()
-          print(p,end="")
-          for e in table.iterkeys(): print(table[e][p],end="")
+          print(p,end=" ")
+          for e in table.keys(): print(table[e][p],end=" ")
   return P
 
 def openParameterFile(file,parameter_files=['*MOM_parameter_doc.all', '*MOM_parameter_doc.short', 'MOM_input'],ignore_files=[]):

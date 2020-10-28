@@ -27,6 +27,10 @@ test3.json: MOM_parameter_doc.all test3.mom6
 test3.html: MOM_parameter_doc.all test3.mom6
 	$(M6S) -m -fmt html $^ | $(REMOVE_TRAILING_SPACE) > $@
 
+# Test difference of two files with different values
+test3.text: MOM_parameter_doc.all test3.mom6
+	$(M6S) -m -fmt text $^ | $(REMOVE_TRAILING_SPACE) > $@
+
 # Checksum of JSON output
 %.md5sum: %
 	md5sum $< > $@
