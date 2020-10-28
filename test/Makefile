@@ -1,8 +1,8 @@
 # Path to script
 M6S = ../MOM6param_scan.py
 
-TESTS = test1.json test2.json test3.json
-MD5SUMS = $(TESTS:.json=.md5sum)
+TESTS = test1.json test2.json test3.json test3.html
+MD5SUMS = $(foreach t,$(TESTS),$(t).md5sum)
 REMOVE_TRAILING_SPACE = sed 's/ $$//'
 
 all: test check
@@ -23,8 +23,12 @@ test2.json: ball.tar
 test3.json: MOM_parameter_doc.all test3.mom6
 	$(M6S) -m $^ | $(REMOVE_TRAILING_SPACE) > $@
 
+# Test difference of two files with different values
+test3.html: MOM_parameter_doc.all test3.mom6
+	$(M6S) -m -fmt html $^ | $(REMOVE_TRAILING_SPACE) > $@
+
 # Checksum of JSON output
-%.md5sum: %.json
+%.md5sum: %
 	md5sum $< > $@
 
 # Invoke each test that results in a JSON file
