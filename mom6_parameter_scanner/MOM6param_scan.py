@@ -89,7 +89,6 @@ def main(args, debug=False):
         if args.format == "json":
             print(json.dumps(table, indent=2))
         elif args.format == "html":
-            print(html_header)
             print("<table>")
             print("<tr>\n<th>Parameter</th>")
             if args.transpose:
