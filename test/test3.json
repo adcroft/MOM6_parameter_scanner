@@ -1,10 +1,16 @@
 {
   "MOM_parameter_doc.all": {
     "GLOBAL": "False",
-    "INT1": "1"
+    "INT1": "1",
+    "STRING2": "\"abc\",\"def\"",
+    "STRING3": "abc,def",
+    "VECTOR": "2.0,1.0,3.0"
   },
   "test3.mom6": {
     "GLOBAL": "--",
-    "INT1": "--"
+    "INT1": "--",
+    "STRING2": "--",
+    "STRING3": "--",
+    "VECTOR": "--"
   }
 }

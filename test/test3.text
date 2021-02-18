@@ -1,0 +1,6 @@
+MOM_parameter_doc.all test3.mom6
+GLOBAL False --
+INT1 1 --
+STRING2 "abc","def" --
+STRING3 abc,def --
+VECTOR 2.0,1.0,3.0 --
