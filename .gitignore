@@ -2,3 +2,5 @@
 *.tar
 *.pyc
 MOM6param_scan_interactive.py
+__pycache__
+mom6_parameter_scanner.egg-info
