@@ -28,6 +28,15 @@ def main(args, debug=False):
     if debug:
         print("main: args=", args)
 
+    html_header = """<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>MOM6 parameters</title>
+</head>
+"""
+
     P = collections.OrderedDict()
     for file in args.files:
         if args.namelist:
@@ -89,6 +98,7 @@ def main(args, debug=False):
         if args.format == "json":
             print(json.dumps(table, indent=2))
         elif args.format == "html":
+            print(html_header)
             print("<table>")
             print("<tr>\n<th>Parameter</th>")
             if args.transpose:
