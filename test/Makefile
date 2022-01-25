@@ -38,6 +38,7 @@ test3.text: MOM_parameter_doc.all test3.mom6
 # Invoke each test that results in a JSON file
 test:
 	make --always-make $(TESTS)
+	pytest
 
 # Check the status of the *.md5sum files
 check: $(TESTS)
