@@ -15,34 +15,36 @@ def test_import():
 # set up temporary directories
 cwd = os.getcwd()
 tempdir = tempfile.mkdtemp()
+
+# figure out where the sample data reside
+resource_dir = pkgr.resource_filename("mom6_parameter_scanner", "resources")
+shutil.copytree(resource_dir,f"{tempdir}/resources")
+
 os.makedirs(f"{tempdir}/piControl/coupled")
 os.makedirs(f"{tempdir}/piControl/oceanonly")
 os.makedirs(f"{tempdir}/historical/coupled")
 os.makedirs(f"{tempdir}/historical/oceanonly")
 
-# figure out where the sample data reside
-resource_dir = pkgr.resource_filename("mom6_parameter_scanner", "resources")
-
 # make sample tar files
-os.chdir(f"{resource_dir}/piControl")
+os.chdir(f"{tempdir}/resources/piControl")
 with tarfile.open(
     f"{tempdir}/piControl/coupled/00010101.ascii_out.tar", mode="w"
 ) as archive:
     archive.add("./", recursive=True)
 
-os.chdir(f"{resource_dir}/historical")
+os.chdir(f"{tempdir}/resources/historical")
 with tarfile.open(
     f"{tempdir}/historical/coupled/18500101.ascii_out.tar", mode="w"
 ) as archive:
     archive.add("./", recursive=True)
 
-os.chdir(f"{resource_dir}/ocean_only_a")
+os.chdir(f"{tempdir}/resources/ocean_only_a")
 with tarfile.open(
     f"{tempdir}/piControl/oceanonly/00010101.ascii_out.tar", mode="w", dereference=True
 ) as archive:
     archive.add("./", recursive=True)
 
-os.chdir(f"{resource_dir}/ocean_only_b")
+os.chdir(f"{tempdir}/resources/ocean_only_b")
 with tarfile.open(
     f"{tempdir}/historical/oceanonly/18500101.ascii_out.tar", mode="w", dereference=True
 ) as archive:
