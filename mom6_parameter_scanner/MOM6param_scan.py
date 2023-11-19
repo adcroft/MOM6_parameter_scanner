@@ -97,6 +97,13 @@ def main(args, debug=False):
             table[e] = row
         if args.format == "json":
             print(json.dumps(table, indent=2))
+        elif args.format == "table":
+            from tabulate import tabulate
+            row_keys = list(next(iter(table.values())).keys())
+            table_data = [[row] + [col[row] for col in table.values()] for row in row_keys]
+            headers = [''] + list(table.keys())  # Adding an empty string for the row header
+            formatted_table = tabulate(table_data, headers=headers, tablefmt='grid')
+            print(formatted_table)
         elif args.format == "html":
             print(html_header)
             print("<table>")

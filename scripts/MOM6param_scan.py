@@ -56,7 +56,7 @@ def parseCommandLine():
     parser.add_argument(
         "-fmt",
         "--format",
-        choices=["json", "html", "text"],
+        choices=["json", "table", "html", "text"],
         default="json",
         help="output format.",
     )
